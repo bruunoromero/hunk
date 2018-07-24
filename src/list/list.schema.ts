@@ -1,8 +1,8 @@
 import * as mongoose from "mongoose";
 
 export const ListSchema = new mongoose.Schema({
-  title: String,
-  description: String,
+  title: { type: String, required: true },
+  description: { type: String, required: true },
   items: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -10,8 +10,9 @@ export const ListSchema = new mongoose.Schema({
     },
   ],
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
   },
   participants: [
     {

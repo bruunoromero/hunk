@@ -8,6 +8,6 @@ export class UserController {
 
   @Get()
   index() {
-    return this.userService.create({ title: "teste" });
+    return this.userService.create({ firebaseId: "teste" });
   }
 }
