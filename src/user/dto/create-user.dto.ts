@@ -1,3 +1,3 @@
 export class CreateUserDto {
-  readonly firebaseId: string;
+  readonly uid: string;
 }
