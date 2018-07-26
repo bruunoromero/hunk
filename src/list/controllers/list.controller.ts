@@ -15,8 +15,8 @@ export class ListController {
   }
 
   @Post()
-  create(@BodyWithCreator() list: CreateListDto) {
-    return this.listService.create(list);
+  async create(@BodyWithCreator() list: CreateListDto) {
+    return await this.listService.create(list);
   }
 
   @Post(":id/items")
