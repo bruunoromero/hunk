@@ -10,7 +10,9 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  async create(@User() user) {
-    return await this.userService.create(user);
+  async create(@User() user, @Body() userBody = {}) {
+    const userToCreate = { ...userBody, _id: user.uid };
+
+    return await this.userService.create(userToCreate);
   }
 }

@@ -11,8 +11,8 @@ export const ListSchema = new mongoose.Schema({
   ],
   creator: {
     ref: "User",
+    type: String,
     required: true,
-    type: mongoose.Schema.Types.ObjectId,
   },
   participants: [
     {

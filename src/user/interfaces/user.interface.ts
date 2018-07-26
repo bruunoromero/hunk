@@ -1,5 +1,5 @@
 import { Document } from "mongoose";
 
 export interface User extends Document {
-  readonly firebaseId: string;
+  readonly _id: string;
 }

@@ -9,9 +9,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 export class UserService {
   constructor(@InjectModel("User") private readonly userModel: Model<User>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = { ...createUserDto, firebaseId: createUserDto.uid };
-
+  async create(user: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(user);
     return await createdUser.save();
   }
