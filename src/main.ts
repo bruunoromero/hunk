@@ -1,10 +1,10 @@
 import { NestFactory } from "@nestjs/core";
 import * as firebaseAdmin from "firebase-admin";
-import { AuthGuard } from "./common/guards/auth.guard";
+import { AuthGuard } from "common/guards/auth.guard";
 
 const serviceAccount = require("../serviceAccountKey.json");
 
-import { AppModule } from "./app.module";
+import { AppModule } from "app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
