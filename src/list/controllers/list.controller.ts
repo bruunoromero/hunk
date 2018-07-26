@@ -1,3 +1,4 @@
+import { CreateItemDto } from "./../dto/create-item.dto";
 import { Controller, Post, Param, Get } from "@nestjs/common";
 
 import { CreateListDto } from "../dto/create-list.dto";
@@ -20,7 +21,10 @@ export class ListController {
   }
 
   @Post(":id/items")
-  async addItem(@Param("id") listId, @BodyWithCreator() item) {
+  async addItem(
+    @Param("id") listId: string,
+    @BodyWithCreator() item: CreateItemDto,
+  ) {
     return await this.listService.addItem(listId, item);
   }
 }
