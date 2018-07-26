@@ -1,3 +1,4 @@
+import { ItemSchema } from "./item.schema";
 import * as mongoose from "mongoose";
 
 export const ListSchema = new mongoose.Schema({
@@ -6,7 +7,7 @@ export const ListSchema = new mongoose.Schema({
   items: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ListItem",
+      ref: "Item",
     },
   ],
   creator: {
