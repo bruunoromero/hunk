@@ -1,7 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
 ## Description
 
 Hunk is aggregator of some useful apps focused on productivity that I frequently need bundled in one app, ex.: Group based lists, Package tracker and etc.
