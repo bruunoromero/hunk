@@ -23,8 +23,29 @@ export class ListService {
     return await this.listModel.findById(listId).exec();
   }
 
+  async findOneBy(caluse: object): Promise<List> {
+    return await this.listModel
+      .findOne(caluse)
+      .populate("items")
+      .exec();
+  }
+
   async findAllBy(clause: object): Promise<List> {
     return await this.listModel.find(clause).exec();
+  }
+
+  async delete(listId: string, userId: string): Promise<List> {
+    const list = await this.find(listId);
+
+    const deletes = list.items.map(itemId =>
+      this.itemService.deleteFromList(itemId),
+    );
+
+    await Promise.all(deletes)
+
+    return await this.listModel
+      .deleteOne({ creator: userId, _id: listId })
+      .exec();
   }
 
   async addItem(listId: string, itemToCreate: CreateItemDto) {

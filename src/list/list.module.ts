@@ -7,6 +7,7 @@ import { ItemService } from "./services/item.service";
 import { ListService } from "./services/list.service";
 import { createDatabase } from "../config/application";
 import { ListController } from "./controllers/list.controller";
+import { ItemPropertySchema } from "./schemas/item-property.schema";
 
 const { url, connectionName } = createDatabase("hunk-list");
 
@@ -19,6 +20,7 @@ const { url, connectionName } = createDatabase("hunk-list");
       [
         { name: "List", schema: ListSchema },
         { name: "Item", schema: ItemSchema },
+        { name: "ItemProperty", schema: ItemPropertySchema },
       ],
       connectionName,
     ),

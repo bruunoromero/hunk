@@ -13,4 +13,8 @@ export class ItemService {
     const createdItem = new this.listModel(createItemDto);
     return await createdItem.save();
   }
+
+  async deleteFromList(itemId: string) {
+    return await this.listModel.deleteOne({ _id: itemId }).exec();
+  }
 }
