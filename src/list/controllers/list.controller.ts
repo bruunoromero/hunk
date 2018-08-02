@@ -1,8 +1,18 @@
-import { CreateItemDto } from "./../dto/create-item.dto";
-import { Controller, Post, Param, Get, Delete } from "@nestjs/common";
+import {
+  Get,
+  Body,
+  Post,
+  Param,
+  Patch,
+  Delete,
+  Controller,
+} from "@nestjs/common";
+import * as R from "ramda";
 
 import { CreateListDto } from "../dto/create-list.dto";
 import { ListService } from "../services/list.service";
+import { UpdateListDto } from "../dto/update-list-dto";
+import { CreateItemDto } from "./../dto/create-item.dto";
 import { User } from "../../common/decorators/user.decorator";
 import { BodyWithCreator } from "../../common/decorators/body-with-creator";
 
@@ -23,6 +33,16 @@ export class ListController {
   @Post()
   async create(@BodyWithCreator() list: CreateListDto) {
     return await this.listService.create(list);
+  }
+
+  @Patch(":id")
+  async update(
+    @User() user,
+    @Param("id") listId: string,
+    @Body() listBody: UpdateListDto,
+  ) {
+    const list = R.pick(["title", "description"], listBody);
+    return await this.listService.update(list, listId, user.uid);
   }
 
   @Delete(":id")

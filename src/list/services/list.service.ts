@@ -34,14 +34,22 @@ export class ListService {
     return await this.listModel.find(clause).exec();
   }
 
+  async update(listBody, listId, userId) {
+    const list = await this.findByIdAndCreator(listId, userId);
+
+    list.set(listBody);
+
+    return await list.save();
+  }
+
   async delete(listId: string, userId: string): Promise<List> {
-    const list = await this.find(listId);
+    const list = await this.findByIdAndCreator(listId, userId);
 
     const deletes = list.items.map(itemId =>
       this.itemService.deleteFromList(itemId),
     );
 
-    await Promise.all(deletes)
+    await Promise.all(deletes);
 
     return await this.listModel
       .deleteOne({ creator: userId, _id: listId })
@@ -54,5 +62,11 @@ export class ListService {
 
     list.items.push(item);
     return await list.save();
+  }
+
+  private async findByIdAndCreator(listId: string, creatorId: string) {
+    return await this.listModel
+      .findOne({ creator: creatorId, _id: listId })
+      .exec();
   }
 }
