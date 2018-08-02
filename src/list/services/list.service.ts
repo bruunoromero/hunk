@@ -23,11 +23,20 @@ export class ListService {
     return await this.listModel.findById(listId).exec();
   }
 
-  async findOneBy(caluse: object): Promise<List> {
-    return await this.listModel
-      .findOne(caluse)
+  async findOne(listId: string, userId: string): Promise<List> {
+    const list = await this.listModel
+      .findOne({
+        _id: listId,
+        $or: [{ creator: userId }, { participants: userId }],
+      })
       .populate("items")
       .exec();
+
+    if (!list) {
+      throw new Error("err");
+    }
+
+    return list;
   }
 
   async findAllBy(clause: object): Promise<List> {
@@ -56,7 +65,7 @@ export class ListService {
       .exec();
   }
 
-  async addItem(listId: string, itemToCreate: CreateItemDto) {
+  async createItem(listId: string, itemToCreate: CreateItemDto) {
     const list = await this.find(listId);
     const item = await this.itemService.create(itemToCreate);
 

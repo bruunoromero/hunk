@@ -27,7 +27,7 @@ export class ListController {
 
   @Get(":id")
   async view(@User() user, @Param("id") listId) {
-    return await this.listService.findOneBy({ creator: user.uid, _id: listId });
+    return await this.listService.findOne(listId, user.uid);
   }
 
   @Post()
@@ -51,10 +51,10 @@ export class ListController {
   }
 
   @Post(":id/items")
-  async addItem(
+  async createItem(
     @Param("id") listId: string,
     @BodyWithCreator() item: CreateItemDto,
   ) {
-    return await this.listService.addItem(listId, item);
+    return await this.listService.createItem(listId, item);
   }
 }
